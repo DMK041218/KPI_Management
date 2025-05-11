@@ -67,13 +67,16 @@ function loadEvidenceHistory() {
                         statusText = 'Rejected';
                         break;
                 }
-                
+          
+                // New code added (update button and delete button at row 78 , 79)
                 row.innerHTML = `
                     <td>${kpi.name}</td>
                     <td>${evidence.submissionDate}</td>
                     <td><span class="badge ${statusClass}">${statusText}</span></td>
                     <td>
                         <button class="btn btn-sm btn-primary view-evidence" data-evidence-id="${evidence.id}">View</button>
+                        <button class="btn btn-sm btn-success update-evidence" data-evidence-id="${evidence.id}">Update</button>
+                        <button class="btn btn-sm btn-danger delete-evidence" data-evidence-id="${evidence.id}">Delete</button>
                     </td>
                 `;
                 
@@ -126,7 +129,7 @@ function initStaff() {
     // Setup evidence submission handler
     handleEvidenceSubmission();
     
-    // Handle evidence view button clicks
+/*  (This is the original code)
     document.addEventListener('click', function(e) {
         if (e.target.classList.contains('view-evidence')) {
             const evidenceId = e.target.getAttribute('data-evidence-id');
@@ -135,6 +138,46 @@ function initStaff() {
         }
     });
 }
+*/
+
+    // Handle evidence view, update, and delete button clicks (has modified the original code)
+    document.addEventListener('click', function (e) {
+        const evidenceId = e.target.getAttribute('data-evidence-id');
+
+        if (!evidenceId) return;
+
+        const evidence = sampleData.evidenceSubmissions.find(ev => ev.id == evidenceId);
+        const kpi = sampleData.kpis.find(k => k.id === evidence.kpiId);
+
+        if (!evidence || !kpi) return;
+
+        // View Evidence Modal (newly added)
+        if (e.target.classList.contains('view-evidence')) {
+            document.getElementById('view-kpi-name').textContent = kpi.name;
+            document.getElementById('view-kpi-details').textContent = evidence.details;
+            document.getElementById('view-kpi-file').textContent = evidence.file || "No file uploaded";
+            document.getElementById('view-kpi-status').textContent = evidence.status;
+            new bootstrap.Modal(document.getElementById('viewKpiModal')).show();
+        }
+
+        // Update Evidence Modal (newly added)
+        if (e.target.classList.contains('update-evidence')) {
+            document.getElementById('update-kpi-id').value = evidenceId;
+            document.getElementById('update-kpi-name').value = kpi.name;
+            document.getElementById('update-kpi-details').value = evidence.details;
+            new bootstrap.Modal(document.getElementById('updateKpiModal')).show();
+        }
+
+        // Delete Confirmation Modal (newly added)
+        if (e.target.classList.contains('delete-evidence')) {
+            document.getElementById('delete-kpi-id').value = evidenceId;
+            new bootstrap.Modal(document.getElementById('deleteKpiModal')).show();
+        }
+    });
+}
+
+
+
 
 // Run on page load
 document.addEventListener('DOMContentLoaded', initStaff);
