@@ -1,0 +1,517 @@
+        <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KPI Tracking System - Manager Dashboard</title>
+    <!-- Favicon -->
+    <link rel="icon" href="img/favicon.ico" type="image/x-icon">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- D3.js -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <!-- ApexCharts -->
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        /* Professional color scheme */
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #34495e;
+            --accent-color: #3498db;
+            --success-color: #27ae60;
+            --warning-color: #f39c12;
+            --danger-color: #c0392b;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+        }
+        
+        .bg-professional-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .bg-professional-secondary {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+        
+        .bg-professional-accent {
+            background-color: var(--accent-color);
+            color: white;
+        }
+        
+        .text-professional-primary {
+            color: var(--primary-color);
+        }
+        
+        .text-professional-secondary {
+            color: var(--secondary-color);
+        }
+        
+        .text-professional-accent {
+            color: var(--accent-color);
+        }
+        
+        .card {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .metric-card {
+            border-left: 4px solid transparent;
+        }
+        
+        .metric-card.primary {
+            border-left-color: var(--accent-color);
+        }
+        
+        .metric-card.success {
+            border-left-color: var(--success-color);
+        }
+        
+        .metric-card.warning {
+            border-left-color: var(--warning-color);
+        }
+        
+        .metric-card.danger {
+            border-left-color: var(--danger-color);
+        }
+        
+        .progress {
+            height: 8px;
+            border-radius: 4px;
+        }
+        
+        .table th {
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+        
+        .kpi-badge {
+            font-size: 0.8rem;
+            padding: 0.35em 0.65em;
+        }
+        
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <i class="fas fa-chart-line me-2"></i> KPI Tracker
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html"><i class="fas fa-home me-1"></i> Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="dashboard.html"><i class="fas fa-tachometer-alt me-1"></i> Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="profile.html"><i class="fas fa-user me-1"></i> Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="staff.html"><i class="fas fa-users me-1"></i> Staff KPIs</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="manager.html"><i class="fas fa-user-tie me-1"></i> Manager View</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown">
+                            <img src="img/avatar.png" alt="User" class="avatar me-2">
+                            <span>Demo User (Manager)</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="profile.html"><i class="fas fa-user-circle me-2"></i> Profile</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i> Settings</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt me-2"></i> Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Manager Content -->
+    <div class="container mt-4 animate-fade-in">
+        <div class="row align-items-center mb-4">
+            <div class="col-md-7">
+                <h2 class="fw-bold text-professional-primary"><i class="fas fa-user-tie me-2"></i> Manager Dashboard</h2>
+                <p class="text-muted mb-0">Monitor and manage team performance metrics</p>
+            </div>
+            <div class="col-md-5">
+                <div class="d-flex justify-content-md-end mt-3 mt-md-0">
+                    <div class="dropdown me-2">
+                        <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-calendar-alt me-1"></i> Q3 2023
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Q1 2023</a></li>
+                            <li><a class="dropdown-item" href="#">Q2 2023</a></li>
+                            <li><a class="dropdown-item" href="#">Q3 2023</a></li>
+                            <li><a class="dropdown-item" href="#">Q4 2023</a></li>
+                        </ul>
+                    </div>
+                    <button class="btn btn-outline-primary" id="refreshData">
+                        <i class="fas fa-sync-alt me-1"></i> Refresh Data
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Manager Stats Cards -->
+        <div class="row mb-4">
+            <div class="col-md-3 col-sm-6 mb-3 mb-md-0">
+                <div class="card h-100 metric-card primary">
+                    <div class="card-body d-flex align-items-center">
+                        <div class="rounded bg-light p-3 me-3">
+                            <i class="fas fa-users text-professional-accent fa-2x"></i>
+                        </div>
+                        <div>
+                            <h6 class="text-muted mb-1">Team Members</h6>
+                            <h4 class="fw-bold mb-0">12</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 mb-3 mb-md-0">
+                <div class="card h-100 metric-card success">
+                    <div class="card-body d-flex align-items-center">
+                        <div class="rounded bg-light p-3 me-3">
+                            <i class="fas fa-check-circle text-success fa-2x"></i>
+                        </div>
+                        <div>
+                            <h6 class="text-muted mb-1">KPIs Achieved</h6>
+                            <h4 class="fw-bold mb-0">38</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 mb-3 mb-md-0">
+                <div class="card h-100 metric-card warning">
+                    <div class="card-body d-flex align-items-center">
+                        <div class="rounded bg-light p-3 me-3">
+                            <i class="fas fa-clock text-warning fa-2x"></i>
+                        </div>
+                        <div>
+                            <h6 class="text-muted mb-1">In Progress</h6>
+                            <h4 class="fw-bold mb-0">16</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="card h-100 metric-card danger">
+                    <div class="card-body d-flex align-items-center">
+                        <div class="rounded bg-light p-3 me-3">
+                            <i class="fas fa-exclamation-triangle text-danger fa-2x"></i>
+                        </div>
+                        <div>
+                            <h6 class="text-muted mb-1">Requiring Attention</h6>
+                            <h4 class="fw-bold mb-0">5</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">Team KPI Overview</h5>
+                        <button class="btn btn-primary" id="assign-kpi-btn">
+                            <i class="fas fa-plus-circle me-1"></i> Assign KPI
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        <div id="team-performance-chart" class="d3-chart" style="height: 300px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-md-6 mb-4">
+                <div class="card h-100">
+                    <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">Department Performance</h5>
+                        <div class="dropdown">
+                            <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                                <i class="fas fa-filter me-1"></i> Filter
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a class="dropdown-item" href="#">All Departments</a></li>
+                                <li><a class="dropdown-item" href="#">Sales</a></li>
+                                <li><a class="dropdown-item" href="#">Marketing</a></li>
+                                <li><a class="dropdown-item" href="#">Engineering</a></li>
+                                <li><a class="dropdown-item" href="#">Customer Support</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div id="department-performance-chart" class="d3-chart" style="height: 250px;"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="card h-100">
+                    <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">KPI Submission Status</h5>
+                        <span class="badge bg-primary">Last 30 days</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Department</th>
+                                        <th>Assigned</th>
+                                        <th>Submitted</th>
+                                        <th>Completion</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Sales</td>
+                                        <td>24</td>
+                                        <td>21</td>
+                                        <td>
+                                            <div class="progress">
+                                                <div class="progress-bar bg-success" role="progressbar" style="width: 88%" aria-valuenow="88" aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Marketing</td>
+                                        <td>18</td>
+                                        <td>15</td>
+                                        <td>
+                                            <div class="progress">
+                                                <div class="progress-bar bg-success" role="progressbar" style="width: 83%" aria-valuenow="83" aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Engineering</td>
+                                        <td>12</td>
+                                        <td>8</td>
+                                        <td>
+                                            <div class="progress">
+                                                <div class="progress-bar bg-warning" role="progressbar" style="width: 67%" aria-valuenow="67" aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Customer Support</td>
+                                        <td>15</td>
+                                        <td>14</td>
+                                        <td>
+                                            <div class="progress">
+                                                <div class="progress-bar bg-success" role="progressbar" style="width: 93%" aria-valuenow="93" aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-2">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">Evidence Verification</h5>
+                        <div>
+                            <button class="btn btn-sm btn-outline-secondary me-2">
+                                <i class="fas fa-filter me-1"></i> Filter
+                            </button>
+                            <button class="btn btn-sm btn-outline-secondary">
+                                <i class="fas fa-download me-1"></i> Export
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Staff Name</th>
+                                        <th>KPI Name</th>
+                                        <th>Target</th>
+                                        <th>Current</th>
+                                        <th>Submission Date</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="evidence-table-body">
+                                    <!-- Evidence data will be inserted here by JavaScript -->
+                                    <tr>
+                                        <td>John Smith</td>
+                                        <td>Sales Revenue</td>
+                                        <td>$50,000</td>
+                                        <td>$47,500</td>
+                                        <td>Sep 15, 2023</td>
+                                        <td><span class="badge bg-warning">Pending Review</span></td>
+                                        <td>
+                                            <button class="btn btn-sm btn-outline-primary me-1"><i class="fas fa-eye"></i></button>
+                                            <button class="btn btn-sm btn-outline-success me-1"><i class="fas fa-check"></i></button>
+                                            <button class="btn btn-sm btn-outline-danger"><i class="fas fa-times"></i></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Sarah Johnson</td>
+                                        <td>Customer Satisfaction</td>
+                                        <td>4.5</td>
+                                        <td>4.8</td>
+                                        <td>Sep 14, 2023</td>
+                                        <td><span class="badge bg-warning">Pending Review</span></td>
+                                        <td>
+                                            <button class="btn btn-sm btn-outline-primary me-1"><i class="fas fa-eye"></i></button>
+                                            <button class="btn btn-sm btn-outline-success me-1"><i class="fas fa-check"></i></button>
+                                            <button class="btn btn-sm btn-outline-danger"><i class="fas fa-times"></i></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Michael Brown</td>
+                                        <td>Project Completion</td>
+                                        <td>5</td>
+                                        <td>4</td>
+                                        <td>Sep 12, 2023</td>
+                                        <td><span class="badge bg-success">Approved</span></td>
+                                        <td>
+                                            <button class="btn btn-sm btn-outline-primary"><i class="fas fa-eye"></i></button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Assign KPI -->
+    <div class="modal fade" id="assignKpiModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Assign New KPI</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="assign-kpi-form">
+                        <div class="mb-3">
+                            <label for="staff-select" class="form-label">Select Staff</label>
+                            <select class="form-select" id="staff-select" required>
+                                <option value="" selected disabled>Choose a staff member...</option>
+                                <!-- Options will be added by JavaScript -->
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="kpi-name" class="form-label">KPI Name</label>
+                            <input type="text" class="form-control" id="kpi-name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="kpi-description" class="form-label">Description</label>
+                            <textarea class="form-control" id="kpi-description" rows="2" required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="kpi-metric" class="form-label">Metric Type</label>
+                            <select class="form-select" id="kpi-metric" required>
+                                <option value="" selected disabled>Choose a metric type...</option>
+                                <option value="currency">Currency (USD)</option>
+                                <option value="count">Count (#)</option>
+                                <option value="percentage">Percentage (%)</option>
+                                <option value="rating">Rating (1-5)</option>
+                                <option value="time">Time (Hours)</option>
+                            </select>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="kpi-target" class="form-label">Target Value</label>
+                                <input type="number" class="form-control" id="kpi-target" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="kpi-deadline" class="form-label">Deadline</label>
+                                <input type="date" class="form-control" id="kpi-deadline" required>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="save-kpi">Assign KPI</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-professional-primary text-white py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="mb-0">&copy; 2023 KPI Tracker. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <a href="#" class="text-decoration-none text-white-50 me-3">Help Center</a>
+                    <a href="#" class="text-decoration-none text-white-50">Contact Us</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JavaScript -->
+    <script src="data/sample-data.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/visualization.js"></script>
+    <script src="js/manager.js"></script>
+    <script>
+        // Refresh data animation
+        document.getElementById('refreshData').addEventListener('click', function() {
+            this.querySelector('i').classList.add('fa-spin');
+            setTimeout(() => {
+                this.querySelector('i').classList.remove('fa-spin');
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

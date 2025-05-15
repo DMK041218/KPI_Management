@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KPI Tracking System - Efficient Performance Management System</title>
+    <!-- Favicon -->
+    <link rel="icon" href="img/favicon.ico" type="image/x-icon">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <i class="fas fa-chart-line me-2"></i> KPI Tracker
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="index.html"><i class="fas fa-home me-1"></i> Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="dashboard.html"><i class="fas fa-tachometer-alt me-1"></i> Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="profile.html"><i class="fas fa-user me-1"></i> Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="staff.html"><i class="fas fa-users me-1"></i> Staff KPIs</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="manager.html"><i class="fas fa-user-tie me-1"></i> Manager View</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown">
+                            <img src="img/avatar.png" alt="User" class="avatar me-2">
+                            <span>Welcome Back</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="profile.html"><i class="fas fa-user-circle me-2"></i> Profile</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i> Settings</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt me-2"></i> Logout</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="darkModeToggle"><i class="fas fa-moon"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-5 animate-fade-in">
+        <!-- Hero Section -->
+        <div class="row align-items-center mb-5">
+            <div class="col-lg-6">
+                <h1 class="display-4 fw-bold mb-3">KPI Management and Tracking System</h1>
+                <p class="lead mb-4">An efficient and simple platform for managing performance indicators, helping teams achieve goals, improve efficiency, and promote performance growth.</p>
+                <div class="d-flex gap-3">
+                    <a href="dashboard.html" class="btn btn-primary btn-lg"><i class="fas fa-chart-bar me-2"></i> Enter System</a>
+                    <a href="#features" class="btn btn-outline-secondary btn-lg"><i class="fas fa-info-circle me-2"></i> Learn More</a>
+                </div>
+            </div>
+     
+        </div>
+
+        <!-- Features Section -->
+        <div id="features" class="row mt-5 pt-5">
+            <div class="col-12 text-center mb-5">
+                <h2 class="fw-bold">System Features</h2>
+                <p class="text-muted">A professional KPI management platform that fully meets your performance management needs</p>
+            </div>
+            
+            <div class="col-md-6 col-lg-3 mb-4">
+                <div class="card home-card h-100">
+                    <div class="card-body text-center p-4">
+                        <div class="feature-icon bg-primary bg-opacity-10 text-primary p-3 rounded-circle mb-3 mx-auto" style="width: 70px; height: 70px;">
+                            <i class="fas fa-tachometer-alt fa-2x"></i>
+                        </div>
+                        <h5 class="card-title">Real-time Dashboard</h5>
+                        <p class="card-text">View your current performance metrics and progress status</p>
+                        <a href="dashboard.html" class="btn btn-primary mt-3">View Dashboard</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-3 mb-4">
+                <div class="card home-card h-100">
+                    <div class="card-body text-center p-4">
+                        <div class="feature-icon bg-success bg-opacity-10 text-success p-3 rounded-circle mb-3 mx-auto" style="width: 70px; height: 70px;">
+                            <i class="fas fa-user-edit fa-2x"></i>
+                        </div>
+                        <h5 class="card-title">Profile</h5>
+                        <p class="card-text">Update your personal information and system settings</p>
+                        <a href="profile.html" class="btn btn-success mt-3">Manage Profile</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-3 mb-4">
+                <div class="card home-card h-100">
+                    <div class="card-body text-center p-4">
+                        <div class="feature-icon bg-info bg-opacity-10 text-info p-3 rounded-circle mb-3 mx-auto" style="width: 70px; height: 70px;">
+                            <i class="fas fa-tasks fa-2x"></i>
+                        </div>
+                        <h5 class="card-title">Staff Functions</h5>
+                        <p class="card-text">Submit evidence and data for your KPI achievements</p>
+                        <a href="staff.html" class="btn btn-info mt-3">Staff Area</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-3 mb-4">
+                <div class="card home-card h-100">
+                    <div class="card-body text-center p-4">
+                        <div class="feature-icon bg-warning bg-opacity-10 text-warning p-3 rounded-circle mb-3 mx-auto" style="width: 70px; height: 70px;">
+                            <i class="fas fa-user-tie fa-2x"></i>
+                        </div>
+                        <h5 class="card-title">Manager Panel</h5>
+                        <p class="card-text">Review team performance and approve evidence</p>
+                        <a href="manager.html" class="btn btn-warning mt-3">Manager Area</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats Section -->
+        <div class="row py-5 mt-4">
+            <div class="col-md-4 mb-4">
+                <div class="card stat-card bg-primary text-white">
+                    <div class="card-body text-center">
+                        <i class="fas fa-tasks stat-icon"></i>
+                        <h3 class="stat-value">98%</h3>
+                        <p class="stat-label mb-0">KPI Completion Rate</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card stat-card bg-success text-white">
+                    <div class="card-body text-center">
+                        <i class="fas fa-chart-line stat-icon"></i>
+                        <h3 class="stat-value">127</h3>
+                        <p class="stat-label mb-0">Data Submitted This Month</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card stat-card bg-info text-white">
+                    <div class="card-body text-center">
+                        <i class="fas fa-users stat-icon"></i>
+                        <h3 class="stat-value">42</h3>
+                        <p class="stat-label mb-0">Active Users</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Testimonial Section -->
+        <div class="row py-5">
+            <div class="col-12 text-center mb-4">
+                <h2 class="fw-bold">User Testimonials</h2>
+                <p class="text-muted">User feedback on the KPI Tracker system</p>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-center mb-3">
+                            <img src="img/user1.jpg" alt="User" class="avatar me-3">
+                            <div>
+                                <h5 class="mb-0">Mr. Zhang</h5>
+                                <p class="text-muted mb-0">Sales Department</p>
+                            </div>
+                        </div>
+                        <p class="mb-0">"KPI Tracker has helped our team better track sales goals and improve overall performance management efficiency."</p>
+                        <div class="mt-3 text-warning">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-center mb-3">
+                            <img src="img/user2.jpg" alt="User" class="avatar me-3">
+                            <div>
+                                <h5 class="mb-0">xxx</h5>
+                                <p class="text-muted mb-0">xxx</p>
+                            </div>
+                        </div>
+                        <p class="mb-0">"The intuitive dashboard and reports allow us to clearly see the performance of each team member, greatly improving management efficiency."</p>
+                        <div class="mt-3 text-warning">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-center mb-3">
+                            <img src="img/user3.jpg" alt="User" class="avatar me-3">
+                            <div>
+                                <h5 class="mb-0">xxx</h5>
+                                <p class="text-muted mb-0">xxx</p>
+                            </div>
+                        </div>
+                        <p class="mb-0">"The system interface is simple and easy to operate, helping us standardize the performance appraisal process and improve overall management quality."</p>
+                        <div class="mt-3 text-warning">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <h5 class="mb-3">KPI Tracker</h5>
+                    <p class="mb-0">A professional performance management system that helps enterprises operate efficiently</p>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <h5 class="mb-3">Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="dashboard.html" class="text-decoration-none text-white-50">Dashboard</a></li>
+                        <li><a href="profile.html" class="text-decoration-none text-white-50">Profile</a></li>
+                        <li><a href="staff.html" class="text-decoration-none text-white-50">Staff KPIs</a></li>
+                        <li><a href="manager.html" class="text-decoration-none text-white-50">Manager View</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <h5 class="mb-3">Contact Us</h5>
+                    <p class="mb-0">Email: support@kpitracker.com</p>
+                    <p class="mb-0">Phone: +86 123-4567-8910</p>
+                    <div class="mt-3">
+                        <a href="#" class="text-white me-2"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-white me-2"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-white me-2"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="text-white"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="mb-0">&copy; 2023 KPI Tracker. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <a href="#" class="text-decoration-none text-white-50 me-3">Privacy Policy</a>
+                    <a href="#" class="text-decoration-none text-white-50">Terms of Use</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JavaScript -->
+    <script>
+        // Dark mode toggle
+        document.getElementById('darkModeToggle').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.body.classList.toggle('dark-mode');
+            const icon = this.querySelector('i');
+            if (document.body.classList.contains('dark-mode')) {
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+                localStorage.setItem('darkMode', 'enabled');
+            } else {
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+                localStorage.setItem('darkMode', 'disabled');
+            }
+        });
+
+        // Check for saved dark mode preference
+        if (localStorage.getItem('darkMode') === 'enabled') {
+            document.body.classList.add('dark-mode');
+            document.querySelector('#darkModeToggle i').classList.remove('fa-moon');
+            document.querySelector('#darkModeToggle i').classList.add('fa-sun');
+        }
+
+        // Animation on scroll
+        window.addEventListener('scroll', () => {
+            const elements = document.querySelectorAll('.home-card, .stat-card');
+            elements.forEach(el => {
+                const rect = el.getBoundingClientRect();
+                const isVisible = (rect.top <= window.innerHeight * 0.8) && (rect.bottom >= 0);
+                if (isVisible) {
+                    el.classList.add('animate-fade-in');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
